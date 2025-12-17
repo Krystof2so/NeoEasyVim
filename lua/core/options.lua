@@ -46,3 +46,16 @@ opt.wrap = false               -- bool : Désactiver le retour automatique à la
 
 -- [[ UI - plugins ]]
 opt.laststatus = 3             -- bool : Afficher une ligne de statut unique
+
+-- ************************
+
+-- [[ Options spéciales ]]
+
+-- Folding basé sur Tree-sitter
+vim.opt.foldmethod = "expr"               -- utiliser une expression pour décider des folds
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"  -- Tree-sitter fournit la fonction
+vim.opt.foldenable = true                 -- activer le folding
+vim.opt.foldlevel = 99                    -- tout ouvert par défaut
+vim.opt.foldlevelstart = 99               -- idem à l'ouverture
+vim.opt.foldcolumn = "1"                  -- colonne pour voir les folds
+
