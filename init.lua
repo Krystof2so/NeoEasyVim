@@ -29,6 +29,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Options, keymaps et autocmds
+require("core.spell")
 require("core.options")
 require("core.keymaps")
 require("core.autocmds")

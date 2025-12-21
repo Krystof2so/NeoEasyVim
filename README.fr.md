@@ -79,7 +79,7 @@ Contient la **configuration fondamentale de Neovim**, indépendante des plugins.
 | `keymaps.lua` | Raccourcis clavier globaux |
 | `autocmds.lua` | Autocommandes |
 
-👉 Ces fichiers ne dépendent d’aucun plugin et peuvent être lus comme une « config Neovim pure ».
+👉 Ces fichiers ne dépendent d’aucun plugin et peuvent être lus comme une « configuration Neovim pure ».
 
 ---
 
@@ -88,7 +88,7 @@ Contient la **configuration fondamentale de Neovim**, indépendante des plugins.
 ### `lua/plugins/init.lua`
 
 Ce fichier est le **point d’agrégation des plugins**. Il ne contient aucune configuration directe, ne s'occupant que des imports logiques :
-- Scanne le dossier `lua/plugins/` et récupère tous les sous-répertoires.
+- Un scan du dossier `lua/plugins/` est effectué en vue de récupérer tous les sous-répertoires.
 - Transforme chaque sous-répertoire en une entrée `{ import = "plugins.<nom>" }`.
 - Retourne une table directement utilisable par `require("lazy").setup()`.
 Chaque sous-dossier représente un **domaine fonctionnel**.
@@ -175,6 +175,20 @@ Avantages :
 - ajout d’un LSP = 1 fichier
 
 ---
+
+--- 
+
+## Gestion du dictionnaire personnalisé
+
+**NvCrafted** intègre un système de correction orthographique adapté au code et aux commentaires.
+
+- Dictionnaires utilisés : anglais (en), français (fr) et un dictionnaire personnalisé code.
+- Création automatique : au premier lancement, le fichier `code.utf-8.add` est créé avec les mots techniques fréquents et compilé en `code.utf-8.spl`.
+- Spellcheck ciblé : actif uniquement dans les commentaires et les chaînes de caractères.
+- Ajout automatique : les mots validés avec `zg` sont ajoutés à `code.utf-8.add` et recompilés dans `.spl`.
+- Compatibilité : fonctionne dès le premier lancement, avec **Neo-tree** et tous les *buffers*, sans télécharger de dictionnaire externe.
+
+--- 
 
 ## Installation
 

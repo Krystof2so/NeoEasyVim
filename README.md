@@ -178,6 +178,18 @@ Benefits:
 
 ---
 
+## Custom Dictionary Management
+
+**NvCrafted** includes a spellchecking system tailored for code and comments.
+
+- **Dictionaries used**: English (en), French (fr), and a custom `code` dictionary.
+- **Automatic creation**: on first launch, the file `code.utf-8.add` is created with common technical terms and compiled into `code.utf-8.spl`.
+- **Targeted spellcheck**: active only in comments and string literals.
+- **Automatic addition**: words validated with `zg` are added to `code.utf-8.add` and recompiled into `.spl`.
+- **Compatibility**: works from the first launch, with **Neo-tree** and all *buffers*, without downloading any external dictionary.
+
+--- 
+
 ## Installation
 
 ### Requirements

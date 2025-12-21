@@ -20,18 +20,14 @@ return {
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 50,
-        position = "right",
         window = {
           border = "rounded",
-          padding = 1,
           max_width = 80,
           max_height = 40,
         },
       },
       menu = {
         border = "rounded",
-        padding = 1,
-        direction = "auto", -- bas si possible, sinon haut
         max_height = 18,
         min_width = 30,
       },
