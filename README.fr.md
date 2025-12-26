@@ -81,6 +81,8 @@ Contient la **configuration fondamentale de Neovim**, indépendante des plugins.
 | `options.lua` | Options Neovim (`vim.opt`) |
 | `keymaps.lua` | Raccourcis clavier globaux |
 | `autocmds.lua` | Autocommandes |
+| `spell.lua` | Dictionnaire personnalisé |
+| `bootstrap.lua` | Démarrage **lazy.nvim** | 
 
 👉 Ces fichiers ne dépendent d’aucun plugin et peuvent être lus comme une « configuration Neovim pure ».
 
