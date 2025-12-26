@@ -40,13 +40,16 @@ Ce projet demeure en construction...
 
 ```text
 .
+├── docs
 ├── init.lua
 ├── lazy-lock.json
 └── lua
     ├── core
     │   ├── autocmds.lua
+    │   ├── bootstrap.lua
     │   ├── keymaps.lua
-    │   └── options.lua
+    │   ├── options.lua
+    │   └── spell.lua
     └── plugins
         ├── init.lua
         ├── coding
@@ -60,9 +63,9 @@ Ce projet demeure en construction...
 
 ### 1. `init.lua` (racine)
 
-Point d’entrée principal :
+Point d’entrée principal (purement déclaratif):
 
-- bootstrap de **lazy.nvim**
+- bootstrap de **lazy.nvim** via `core.bootstrap` (isolation de la logique d'installation de **lazy.nvim**)
 - définition des leaders
 - chargement des modules `core`
 - initialisation de **Lazy** avec l’import automatique des plugins
