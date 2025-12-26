@@ -86,6 +86,43 @@ Contient la **configuration fondamentale de Neovim**, indépendante des plugins.
 
 ---
 
+## Conventions d’extension
+
+### Ajouter un *plugin*
+
+1. Crée un fichier **Lua** dans le dossier correspondant, par exemple :  
+   - `lua/plugins/ui/` pour un plugin d’interface  
+   - `lua/plugins/coding/` pour un plugin lié à l’édition de code  
+   - `lua/plugins/tools/` pour les outils transverses
+
+2. Le fichier doit retourner une table compatible **Lazy.nvim**. Exemple minimal :
+
+```lua
+return {
+  "author/pluginname.nvim",
+  config = function()
+    -- configuration spécifique du plugin ici
+  end
+}
+```
+
+### Ajouter un serveur **LSP**
+
+1. Ajoute le serveur dans `lua/plugins/lsp/config/` avec un fichier nommé par le serveur, par exemple `pyright.lua`.
+
+2. Structure du fichier :
+```lua
+return {
+  settings = {
+    -- configuration LSP spécifique
+  }
+}
+```
+
+3. Le fichier `lua/plugins/lsp/init.lua` détectera automatiquement les configurations existantes et appliquera le **LSP** au serveur correspondant.
+
+--- 
+
 ## Gestion des plugins avec Lazy.nvim
 
 ### `lua/plugins/init.lua`

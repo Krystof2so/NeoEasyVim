@@ -86,6 +86,43 @@ Contains the **fundamental Neovim configuration**, independent of any plugin.
 
 ---
 
+## Extension Conventions
+
+### Adding a *plugin*
+
+1. Create a **Lua** file in the corresponding folder, for example:  
+   - `lua/plugins/ui/` for a UI plugin  
+   - `lua/plugins/coding/` for a code-related plugin  
+   - `lua/plugins/tools/` for cross-cutting tools
+
+2. The file must return a table compatible with **Lazy.nvim**. Minimal example:
+
+```lua
+return {
+  "author/pluginname.nvim",
+  config = function()
+    -- plugin-specific configuration here
+  end
+}
+```
+
+### Adding an LSP server
+
+1. Add the server in `lua/plugins/lsp/config/` with a file named after the server, for example `pyright.lua`.
+
+2. File structure:
+```lua
+return {
+  settings = {
+    -- specific LSP configuration
+  }
+}
+```
+
+3. The file `lua/plugins/lsp/init.lua` will automatically detect existing configurations and apply the **LSP** to the corresponding server.
+
+--- 
+
 ## Plugin management with Lazy.nvim
 
 ### `lua/plugins/init.lua`
