@@ -49,7 +49,9 @@ Ce projet demeure en construction...
     │   ├── bootstrap.lua
     │   ├── keymaps.lua
     │   ├── options.lua
-    │   └── spell.lua
+    │   ├── spell.lua
+    │   └── lsp
+    │       └── servers.lua
     └── plugins
         ├── init.lua
         ├── coding
@@ -83,6 +85,7 @@ Contient la **configuration fondamentale de Neovim**, indépendante des plugins.
 | `autocmds.lua` | Autocommandes |
 | `spell.lua` | Dictionnaire personnalisé |
 | `bootstrap.lua` | Démarrage **lazy.nvim** | 
+| `lsp/servers.lua` | Source de vérité des serveurs LSP |
 
 👉 Ces fichiers ne dépendent d’aucun plugin et peuvent être lus comme une « configuration Neovim pure ».
 
@@ -110,9 +113,25 @@ return {
 
 ### Ajouter un serveur **LSP**
 
-1. Ajoute le serveur dans `lua/plugins/lsp/config/` avec un fichier nommé par le serveur, par exemple `pyright.lua`.
+L’ajout d’un serveur *LSP* suit une approche déclarative en deux niveaux.
 
-2. Structure du fichier :
+1. Déclaration du serveur 
+Ajouter le nom du serveur dans `lua/core/lsp/servers.lua`
+Exemple :
+```lua
+return {
+  "lua_ls",
+  "pyright",
+  "rust_analyzer",
+}
+```
+👉 Ce fichier est la source de vérité :
+- utilisé par **Mason** pour l’installation
+- utilisé par l’orchestrateur **LSP** pour l’activation
+
+2. Configuration spécifique
+Créer un fichier nommé selon le serveur : `lua/plugins/lsp/config/<nom_serveur>.lua`.
+Structure du fichier :
 ```lua
 return {
   settings = {
@@ -121,7 +140,9 @@ return {
 }
 ```
 
-3. Le fichier `lua/plugins/lsp/init.lua` détectera automatiquement les configurations existantes et appliquera le **LSP** au serveur correspondant.
+Principe clé :
+Un serveur LSP fonctionne sans configuration spécifique.
+Une surcouche n’est chargée que si un fichier dédié existe.
 
 --- 
 
@@ -134,6 +155,11 @@ Ce fichier est le **point d’agrégation des plugins**. Il ne contient aucune c
 - Transforme chaque sous-répertoire en une entrée `{ import = "plugins.<nom>" }`.
 - Retourne une table directement utilisable par `require("lazy").setup()`.
 Chaque sous-dossier représente un **domaine fonctionnel**.
+
+👉 Principes clés :
+- Aucun *plugin* n’est déclaré manuellement dans init.lua.
+- Chaque *plugin* dispose de son propre fichier.
+- La philosophie adoptée est de ne configurer que ce qui diffère des valeurs par défaut, afin de garder des fichiers courts et explicites. Par exemple : `autopairs.lua` ne redéfinit que l’intégration **Tree-sitter**.
 
 ---
 
@@ -148,8 +174,6 @@ Plugins liés à l’interface utilisateur :
 - écran d’accueil ([alpha](https://github.com/goolord/alpha-nvim))
 - thème de couleurs ([Nord](https://www.nordtheme.com/)) - Je sais, je suis un inconditionnel de ce thème.
 
-Chaque plugin dispose de son propre fichier.
-
 ---
 
 ### `plugins/coding/`
@@ -161,10 +185,6 @@ Plugins améliorant l’expérience d’édition du code :
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - formatage ([conform](https://github.com/stevearc/conform.nvim))
 
-👉 La philosophie adoptée est de **ne configurer que ce qui diffère des valeurs par défaut**, afin de garder des fichiers courts et explicites.
-
-Exemple : `autopairs.lua` ne redéfinit que l’intégration **Tree-sitter**.
-
 ---
 
 ### `plugins/tools/`
@@ -175,48 +195,22 @@ Outils transverses (ex. [which-key](https://github.com/folke/which-key.nvim)) qu
 
 ## Gestion des LSP
 
-Le support LSP est volontairement **séparé en deux niveaux** :
+Le support **LSP** est structuré en trois niveaux distincts.
 
-### 1️⃣ Niveau global — `plugins/lsp/init.lua`
+1. Déclaration — `core/lsp/servers.lua`
+    - liste explicite des serveurs utilisés
+    - aucune logique
+    - aucune dépendance *plugin*
 
-Responsabilités :
+2. Orchestration — plugins/lsp/init.lua
+    Responsabilités :
+    - charger la liste des serveurs
+    - appliquer les surcouches existantes
+    - enregistrer les serveurs via l’API officielle : `vim.lsp.config(server, opts)`
 
-- installer les serveurs via **Mason**
-- lister les serveurs actifs
-- charger dynamiquement une configuration spécifique si elle existe
-
-Principe clé :
-
-> **Un serveur LSP fonctionne sans configuration spécifique.**
-> Une surcouche n’est chargée que si un fichier dédié existe.
-
----
-
-### 2️⃣ Niveau spécifique — `plugins/lsp/config/`
-
-Chaque fichier correspond **à un serveur LSP précis**.
-
-Exemple : `pyright.lua`
-
-```lua
-return {
-  settings = {
-    python = {
-      analysis = {
-        typeCheckingMode = "strict",
-      },
-    },
-  },
-}
-```
-
-Avantages :
-
-- aucune duplication de logique
-- configuration locale et explicite
-- ajout d’un LSP = 1 fichier
-
----
+3. Installation — `plugins/lsp/mason.lua`
+    - installation automatique des serveurs déclarés
+    - aucune décision fonctionnelle
 
 --- 
 

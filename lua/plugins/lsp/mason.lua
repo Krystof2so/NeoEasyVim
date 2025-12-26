@@ -1,4 +1,14 @@
--- Gestion de la configuration de Mason et Mason-lspconfig
+-- ****************************************************************
+-- * lua/plugins/lsp/mason.lua                                    *
+-- *                                                              *
+-- * Configuration de Mason et Mason-lspconfig.                   *
+-- * Mason est responsable de l'installation des binaires LSP.    *
+-- * Mason-lspconfig fait le lien entre les serveurs déclarés     *
+-- * dans NvCrafted et leur présence effective sur le système.    *
+-- * Mason se contente d'installer les serveurs déclarés dans     *
+-- * servers.lua.                                                 *
+-- ****************************************************************
+
 return {
   -- Mason principal
   {
@@ -15,8 +25,13 @@ return {
     },
   },
 
+  -- Pont Mason ↔ nvim-lspconfig
   {
-    "neovim/nvim-lspconfig", -- lspconfig doit aussi être un plugin géré par Lazy
+    "williamboman/mason-lspconfig.nvim",
+    opts = {
+      -- Liste des serveurs LSP à installer automatiquement.
+      -- Elle est dérivée directement de la source de vérité
+      ensure_installed =  require("core.lsp.servers")
+    },
   },
 }
-
