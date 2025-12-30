@@ -31,14 +31,31 @@ function M.on_attach(_, bufnr)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 
   -- Documentation
-  vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+  vim.keymap.set("n", "K", function()
+    vim.lsp.buf.hover({
+      border = "rounded",
+      max_width = 80,
+      max_height = 20,
+    })
+  end, opts)
+
 
   -- Actions au niveau du code
   vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 
-  -- Diagnostics
-  vim.keymap.set("n", "<leader>cw", vim.diagnostic.open_float, opts)
+  -- Diagnostics flottants
+  vim.keymap.set("n", "<leader>cw", function()
+    vim.diagnostic.open_float(nil, {
+      bufnr = bufnr,  -- buffer local
+      border = "rounded",
+      max_width = 80,
+      max_height = 20,
+      title = "Diagnostics",
+      title_pos = "center",
+      focusable = false,
+    })
+  end, opts)
 
   -- ------------------------------------------------------------
   -- Hooks conditionnels (préparés pour plus tard)

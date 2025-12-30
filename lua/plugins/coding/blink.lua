@@ -1,3 +1,10 @@
+-- *********************************************************************
+-- * plugins/coding/blink.lua                                          *
+-- *                                                                   *
+-- * Complétion avec blink.nvim, intégrée avec LuaSnip et snippets     *
+-- * Configuration UX : menu et documentation flottante bien délimités *
+-- *********************************************************************
+
 return {
   "saghen/blink.cmp",
   version = "*",
@@ -41,6 +48,12 @@ return {
 
     -- Charger automatiquement les snippets VSCode
     require("luasnip.loaders.from_vscode").lazy_load()
-  end,
+
+    -- Couleurs pour les fenêtres flottantes LSP/complétion
+    vim.cmd([[
+      hi LspFloatBorder guifg=#81a1c1 guibg=#2e3440
+      hi LspFloatWinNormal guibg=#3b4252 guifg=#d8dee9
+    ]])
+    end,
 }
 
