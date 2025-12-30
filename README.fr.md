@@ -33,6 +33,7 @@ Ce projet demeure en construction...
 - [mason.nvim](https://github.com/mason-org/mason.nvim) / [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim) : installation et gestion des LSP
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) (via l’API `vim.lsp`)
 - [Tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter) pour l’analyse syntaxique
+- [Lazydev.nvim](https://github.com/folke/lazydev.nvim) pour améliorer l'expérience **LSP** **Lua** avec les fichiers de configuration.
 
 ---
 
@@ -51,6 +52,7 @@ Ce projet demeure en construction...
     │   ├── options.lua
     │   ├── spell.lua
     │   └── lsp
+    │       ├── capabilities.lua
     │       ├── on_attach.lua
     │       └── servers.lua
     └── plugins
@@ -185,6 +187,7 @@ Plugins améliorant l’expérience d’édition du code :
 - **Tree-sitter**
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - formatage ([conform](https://github.com/stevearc/conform.nvim))
+- [Lazydev](https://github.com/folke/lazydev.nvim)
 
 ---
 
