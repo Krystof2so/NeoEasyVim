@@ -25,7 +25,7 @@ return {
             "toml",
             -- Indispensables pour le plugin trouble.nvim 
             -- Peuvent être supprimés si trouble.nvim n'est pas installé
-            "markdown",         
+            "markdown",
             "markdown_inline"
         },
         sync_install = false,

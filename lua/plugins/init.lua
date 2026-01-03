@@ -15,7 +15,7 @@ local function get_plugin_dirs(path)
   if scan_handle then  -- uniquement si non nil, sinon sortie de la condition
     while true do
       local name, type = vim.loop.fs_scandir_next(scan_handle)
-      if not name then break end  -- quand il n'y a plus d'élement, name = nil
+      if not name then break end  -- quand il n'y a plus d'élément, name = nil
       if type == "directory" then  -- si répertoire
         table.insert(dirs, name)
       end
