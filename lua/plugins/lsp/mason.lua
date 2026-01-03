@@ -40,8 +40,8 @@ return {
     opts = {
       -- Installation d'outils complémentaires (linter, formatter, etc.), via mason-tool-installer 
       -- (facultatif mais pratique)
-      ensure_installed = require("core.lsp.tools")
+      ensure_installed = require("core.lsp.tools"),
+      auto_update = true,
     },
-    auto_update = true,
   },
 }

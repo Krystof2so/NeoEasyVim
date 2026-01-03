@@ -13,6 +13,8 @@ vim.g.loaded_ruby_provider = 0
 
 -- Python dédié Neovim
 vim.g.python3_host_prog = vim.fn.expand("~/.venvs/neovim/bin/python")
+-- Ajouter Mason au PATH pour que les binaires soient trouvables
+vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.stdpath("data") .. "/mason/bin"
 
 -- Leader keys
 vim.g.mapleader = " "
