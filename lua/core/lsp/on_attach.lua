@@ -12,6 +12,9 @@
 local M = {}
 
 function M.on_attach(_, bufnr)
+  -- Higlights  
+  require("core.highlights.diagnostics_theme_nord").setup()  -- ou autre fichier (ou rien)
+
   -- ------------------------------------------------------------
   -- Options buffer-local liées au LSP
   -- ------------------------------------------------------------
@@ -57,14 +60,6 @@ function M.on_attach(_, bufnr)
     })
   end, opts)
 
-  -- ------------------------------------------------------------
-  -- Hooks conditionnels (préparés pour plus tard)
-  -- ------------------------------------------------------------
-
-  -- Exemple :
-  -- if client.server_capabilities.documentFormattingProvider then
-  --   -- activer le formatage auto
-  -- end
 end
 
 return M
